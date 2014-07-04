@@ -2,6 +2,7 @@
   window.NestedFormEvents = function() {
     this.addFields = $.proxy(this.addFields, this);
     this.removeFields = $.proxy(this.removeFields, this);
+    this.removeFieldsClicked = $.proxy(this.removeFieldsClicked, this);
   };
 
   NestedFormEvents.prototype = {
@@ -66,14 +67,22 @@
         return $(content).insertBefore(link);
       }
     },
-    removeFields: function(e) {
+    removeFieldsClicked: function(e) {
       var $link = $(e.currentTarget),
           assoc = $link.data('association'); // Name of child to be removed
       
       var hiddenField = $link.prev('input[type=hidden]');
+      this._removeFields(hiddenField, assoc);
+    },
+    removeFields: function(assoc, id) {
+      var hiddenField = $('input[type="hidden"][id$="' + assoc + '_attributes_' + id + '__destroy"]');
+      this._removeFields(hiddenField, assoc);
+    },
+
+    _removeFields: function(hiddenField, assoc) {
       hiddenField.val('1');
       
-      var field = $link.closest('.fields');
+      var field = hiddenField.closest('.fields');
       field.hide();
       
       field
@@ -86,7 +95,7 @@
   window.nestedFormEvents = new NestedFormEvents();
   $(document)
     .delegate('form a.add_nested_fields',    'click', nestedFormEvents.addFields)
-    .delegate('form a.remove_nested_fields', 'click', nestedFormEvents.removeFields);
+    .delegate('form a.remove_nested_fields', 'click', nestedFormEvents.removeFieldsClicked);
 })(jQuery);
 
 // http://plugins.jquery.com/project/closestChild
