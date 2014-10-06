@@ -1,4 +1,5 @@
 # Nested Form
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/dfyx/nested_form?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [<img src="https://secure.travis-ci.org/ryanb/nested_form.png?branch=master" alt="Build Status" />](http://travis-ci.org/ryanb/nested_form)
 
